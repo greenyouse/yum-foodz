@@ -18,7 +18,7 @@
     "html-minifier": "^3.0.2"
   },
   "scripts": {
-    "serve": "node src/server/server.js",
+    "serve": "node index.js",
     "compile": "node build/build.js"
   },
   "repository": {

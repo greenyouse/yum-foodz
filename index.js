@@ -6,9 +6,7 @@ const bodyParser = require('body-parser'),
       express = require('express'),
       fs = require('fs'),
       http = require('http'),
-      jsonDB = require('node-json-db'),
-      url = require('url'),
-      webPush = require('web-push');
+      jsonDB = require('node-json-db');
 
 var app = express();
 app.engine('html', es6Renderer);
