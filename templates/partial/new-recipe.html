@@ -1,0 +1,52 @@
+<!--
+     edit vars:
+     id
+     title
+     picture
+     time
+     difficulty
+     ingredients
+     directions
+   -->
+
+<!-- if edit vars are available treat it as an edit, should use a HOF here but going fast -->
+<form ${r.id ?`action="/edit/${r.id}"`:`action="/new-recipe"`} method="post">
+  <group>
+    <label>Title<br>
+      <input type="text" name="title"
+             ${r.title?`value="${r.title}"`:``}
+             placeholder="Totally Awesome Food" required autofocus></label>
+      <br>
+      <span id="titleError" hidden>Don't forget the title!</span>
+  </group>
+
+  <label>Picture url<br>
+    <input type="url" name="picture" ${r.picture?`value="${r.picture}"`:``} placeholder="example.com/desert.jpeg"></label><br>
+    <label>Time<br><input type="text" name="time" ${r.time?`value="${r.time}"`:``} placeholder="30min"></label><br>
+
+    <label>Difficulty<br><input class="slider" name="difficulty"
+                                ${r.difficulty ?`value="${r.difficulty}"`:``}
+                                type="range" min="1" max="5"></label><br>
+
+    <label>Description<br>
+      <textarea type="text" name="description" cols="40" placeholder="Here's a delicious dish!">${r.description?`${r.description}`:``}</textarea>
+    </label><br>
+
+    <p>Add ingredients and recipe steps using an asterisk * for each item</p>
+
+    <group>
+      <label>Ingredients<br>
+        <textarea type="text" name="ingredients" required cols="40" placeholder="* ham * cheese * tomatoes * lettuce...">${r.ingredients?`${r.ingredients}`:``}</textarea></label><br>
+        <span id="ingredientsError" hidden>Add ingredients</span>
+    </group>
+
+    <group>
+      <label>Directions<br>
+        <textarea type="text" name="directions" required cols="40"
+                  placeholder="* put in pot * turn on heat * do stuff...">${r.directions?`${r.directions}`:``}</textarea></label>
+      <br>
+      <span id="directionsError" hidden>Add some directions</span>
+    </group>
+
+    <button type="submit">Save</button>
+</form>

@@ -1,0 +1,80 @@
+<!--
+     vars:
+     id
+     picture
+     title
+     time
+     difficulty
+     description
+
+     iterators:
+     ingredients
+     directions
+   -->
+${stylesheets.map(style => `
+<link rel="stylesheet" href="${style}">
+`).join('')}
+
+<ul class="header__tablist" role="tablist">
+  <li role="tab" selected="true" tabindex="1">description</li>
+  <li role="tab" selected="false" tabindex="0">ingredients</li>
+  <li role="tab" selected="false" tabindex="0">directions</li>
+  <!-- TODO: change to radio buttons -->
+  <noscript><label for="descriptionSelector" role="tab"><li>description</li></label></noscript>
+  <noscript><label for="ingredientsSelector" role="tab"><li>ingredients</li></label></noscript>
+  <noscript><label for="directionsSelector" role="tab"><li>directions</li></label></noscript>
+</ul>
+
+
+${(picture !== undefined) && picture.length > 0 ?
+`<img alt="${title} picture" src="${picture}">` :
+`<div class="recipe__icon">&#127858;</div>`}
+
+<input type="radio" name="subpage" id="descriptionSelector" checked>
+<section class="subpage subpage__description" role="tabpanel" aria-expanded="true">
+  <!-- TODO: could use map over the recipe for space -->
+  ${actionBtn == 'edit' ?
+  <!-- lynx doesn't observe the hidden attribute ;) <a href="/edit/${id}" hidden>Edit recipe</a> -->
+  `<div id="describeEdit" hidden>Edit recipe</div><a href="/edit/${id}"><div aria-describedby="describeEdit" class="recipe__button__edit"></div></a>` :
+  <!-- FIXME: maybe not the best solution, still shows up in lynx -->
+  `<form action="/new-recipe" method="post"><input name="id" value="${id}" hidden><input name="title" value="${title}" hidden><input name="picture" value="${picture}" hidden><input name="time" value="${time}" hidden><input name="difficulty" value="${difficulty}" hidden><input name="description" value="${description}" hidden><input name="ingredients" value="*${ingredients.join('*')}" hidden><input name="directions" value="*${directions.join('*')}" hidden><div id="describeAdd" hidden>Save this recipe</div><button aria-describedby="describeAdd" type="submit" class="recipe__button__add">+</button></form>`}
+  <div class="recipe__title__bar">
+    <h2>${title}</h2>
+    <span class="recipe__subheader">
+      ${time ? `Time: ${time}` : ``}
+      ${difficulty ? `Difficulty: ${difficulty}` : ``}</span>
+  </div>
+  <hr>
+  <article>
+    <p>${description}</p>
+  </article>
+</section>
+
+<input type="radio" name="subpage" id="ingredientsSelector">
+<section class="subpage subpage__ingredients hidden" role="tabpanel" aria-expanded="true">
+  <div class="subpage__listing">
+    <h2>Ingredients</h2>
+    <ul>
+      ${ingredients.map(ingredient => `
+      <li><p>${ingredient}</p></li>
+      `).join('')}
+    </ul>
+  </div>
+</section>
+
+<input type="radio" name="subpage" id="directionsSelector">
+<section class="subpage subpage__directions hidden" role="tabpanel" aria-expanded="true">
+  <div class="subpage__listing">
+    <h2>Directions</h2>
+    <!-- just duplicating ingredient here since structure is identical -->
+    <ol>
+      ${directions.map(step => `
+      <li><p>${step}</p></li>
+      `).join('')}
+    </ol>
+  </div>
+</section>
+
+${scripts.map(script => `
+<script src="${script}" async></script>
+`).join('')}

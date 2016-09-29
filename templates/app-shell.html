@@ -1,0 +1,100 @@
+<!--
+     template vars:
+     css
+     pageName
+     headerBtn
+
+     iterators:
+     stylesheets
+     scripts
+
+     partials:
+     page
+
+     TODO: optimize by removing optiional HTML tags
+     not removing optional tags now because I don't want to have minifiers go crazy
+ -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="manifest" href="/manifest.json">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <title>Foodz!</title>
+
+    <link rel="shortcut icon" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="shortcut icon" sizes="32x32" href="/icons/favicon-32x32.png">
+    <meta name="theme-color" content="#512DA8">
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- chrome android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Yum Foodz">
+    <link rel="icon" sizes="144x144" href="/icons/android-icon-144x144.png">
+
+    <!-- Add to homescreen for Safari on iOS (can exclude here because iOS will
+         search my root dir for app icons,) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Yum Foodz">
+    <link rel="apple-touch-icon" href="/icons/apple-icon-144x144.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) and Win8.1/IE11 -->
+    <meta name="application-name" content="Yum Foodz">
+    <meta name="msapplication-tooltip" content="Foodz!">
+    <meta name="msapplication-config" content="/icons/browserconfig.xml">
+    <meta name="msapplication-TileImage" href="/icons/ms-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#2F3BA2">
+
+    <!-- TODO: inlining the CSS here makes the app-shell render faster,
+       insert after minification -->
+    <link rel="stylesheet" href="/css/app-shell.css">
+    <noscript><link rel="stylesheet" href="/css/noscript.css"></noscript>
+  </head>
+  <body>
+
+    <input id="hamburger" type="checkbox">
+
+    <nav id="drawer" class="nav">
+      <h2>Yum Foodz!</h2>
+      <ul class="nav__list">
+        <!-- decimal based unicode ftw! -->
+        <li class="nav__item">&#127828;<a href="/fotd">Food of the day</a></li><hr>
+        <li class="nav__item">&#128214;<a href="/recipes">Recipes</a></li><hr>
+        <li class="nav__item">&#127839;<a href="/new-recipe">New Recipe</a></li><hr>
+        <!-- <li class="nav__item">&#128197;<a href="#">Meal planner</a></li> -->
+      </ul>
+    </nav>
+
+    <div class="page">
+      <header class="header">
+        ${headerBtn == ''?
+        `<div id="describeBtn" hidden>App menu</div><label for="hamburger" class="header__nav-icon" aria-describedby="describeBtn" >&equiv;</label>` :
+        `<div id="describeBtn" hidden>Back to last page</div><a href="${headerBtn}" class="header__nav-icon up-arrow" aria-describedby="describeBtn" >&#10132;</a>`}
+        <h1>${pageName}</h1>
+        ${pageName == 'Recipe' ?
+        `<div id="describeBtn2" hidden>Delete recipe</div>
+        <form action="/recipe/${id}" method="post">
+          <button class="pageBtn" describedby="describeBtn2" type="submit">&#128473;</button>
+        </form>` :  ``}
+      </header>
+
+      <main>
+        ${stylesheets.map(style => `
+        <link rel="stylesheet" href="${style}">
+        `).join('')}
+        <!-- block rendering in Firefox until CSS is done -->
+        <script></script>
+
+        ${page}
+
+        ${scripts.map(script => `
+        <script src="${script}" async></script>
+        `).join('')}
+
+        <script src="/js/app.js" async></script>
+      </main>
+    </div>
+  </body>
+</html>

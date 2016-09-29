@@ -1,0 +1,53 @@
+body, main {
+    background-color: #fff;
+}
+
+main {
+    margin-top: -.1em;
+}
+
+form {
+    margin-left: 2em;
+}
+
+input, textarea {
+    margin-bottom: 2em;
+}
+
+input:not([type=range]),
+ textarea {
+    border: none;
+    border-bottom: 2px solid rgba(117, 117, 117, 54);
+}
+
+input:not([type=range]):focus, textarea:focus {
+    border-color: blue;
+    color: #212121;
+    opacity: 87%;
+    outline: none;
+}
+
+.slider::-moz-range-thumb {
+    background-color: #673AB7;
+}
+
+.slider::-moz-range-progress {
+    background-color:  #673AB7;
+}
+
+label {
+    color: #545454;
+    font-size: small;
+}
+
+span {
+    margin-top: -2em;
+    position: absolute;
+    font-size: small;
+    color: red;
+}
+
+p {
+    color: #212121;
+    opacity: 87%;
+}

@@ -1,0 +1,21 @@
+/* disable for noJS because keyboard input + a11y doesn't work anyway */
+*:focus {
+    outline: none;
+}
+
+*.hidden {
+    display: block;
+}
+
+/* FIXME: quick fix here, correct later */
+.header__tablist > li {
+    display: none !important;
+}
+
+.subpage {
+    display: none;
+}
+
+input:checked + .subpage {
+    display: block;
+}

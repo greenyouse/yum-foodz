@@ -1,0 +1,253 @@
+body {
+    background-color: #fff;
+}
+
+main {
+    position: absolute;
+}
+
+#descriptionSelector,
+#ingredientsSelector,
+#directionsSelector,
+.hidden {
+    display: none;
+}
+
+.header__tablist {
+    background-color: #673AB7;
+    margin-top: -2.5em;
+    margin-left: -2.5em;
+    padding-top: 1em;
+    text-align: center;
+    width: 100%;
+}
+
+/* would be cool to have material's tab switching + FAB animations but too much space */
+.header__tablist li {
+    color: #fff;
+    text-decoration: none;
+    padding-bottom: 1em;
+    cursor: pointer;
+    margin-right: .5em;
+    display: inline-block;
+    font-family: "sans";
+    font-size: large;
+    font-variant: small-caps;
+    list-style: none;
+}
+
+li[tabindex="1"] {
+    border-bottom: 3px solid #FFEB3B;
+}
+
+li[tabindex="1"]:focus {
+    outline: none;
+}
+
+li[tabindex="0"]:hover {
+    border-bottom: 3px solid #D1C4E9;
+}
+
+li[tabindex="0"]:focus {
+    border-bottom: 3px solid #FFEB3B;
+}
+
+.recipe__icon {
+    font-size: 13em;
+    margin-top: 0.1em;
+    text-align: center;
+}
+
+/* better on small screens or wide imgs */
+img {
+    display: block;
+    max-height: 25em;
+    margin-top: -1em;
+    margin: -1em auto 0 auto;
+}
+
+.recipe__button__add,
+.recipe__button__edit {
+    border-radius: 50%;
+    font-size: xx-large;
+    background-size: 1.1em 1.1em;
+    background-repeat: no-repeat;
+    background-position: .3em;
+    background-color: #FFEB3B;
+    box-shadow: 0 5px 6px 0 rgba(0, 0, 0, 0.4);
+    border: 1px solid #FFEB3B;
+    width: 1.75em;
+    height: 1.75em;
+    right: 1em;
+    margin-top: -1.7em;
+    cursor: pointer;
+    position: absolute;
+}
+
+.recipe__button__edit {
+    background-image: url("../images/pencil.svg");
+}
+
+.recipe__button__add {
+    color: black;
+}
+
+.recipe__button__add:hover,
+.recipe__button__edit:hover {
+    background-color: goldenrod;
+    border-color: goldenrod;
+}
+
+/* yuck */
+.recipe__button__edit::-moz-focus-inner {
+    border: 0;
+}
+
+.subpage h2 {
+    padding: .5em .5em 0 .5em;
+    margin-bottom: 0;
+    outline: none;
+}
+
+.recipe__title__bar {
+    text-align: center;
+}
+
+.subpage p {
+    margin: 1.5em;
+}
+
+.recipe__subheader {
+    color: #757575;
+    opacity: 54%;
+}
+
+
+.subpage__ingredients li {
+    list-style: circle;
+    max-width: 25em;
+    margin-right: 3em;
+}
+
+.subpage__ingredients li:nth-child(n+2) {
+    border-top: 1px dotted black;
+}
+
+hr {
+    margin: 1em 4em;
+}
+
+@media screen and (min-width: 400px) and (max-width: 600px) {
+    .header__tablist {
+        margin-left: -2em;
+    }
+
+    .header__tablist li {
+        margin-right: 2em;
+        font-size: large;
+    }
+
+}
+
+@media screen and (min-width: 600px) {
+    .header__tablist {
+        margin-left: -2em;
+    }
+
+    .header__tablist li {
+        margin-right: 3.5em;
+        font-size: large;
+    }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1000px) {
+    img {
+        margin-left: .5em;
+        max-width: 80%;
+        z-index: -1;
+    }
+
+    .recipe__icon {
+        margin-right: 1.2em;
+    }
+
+    .header__tablist {
+        right: 6em;
+    }
+
+    hr {
+        width: 60%;
+    }
+
+    hr, .recipe__title__bar {
+        margin-right: 14em;
+    }
+
+    section {
+        max-width: 100%;
+    }
+
+    .recipe__button__add,
+    .recipe__button__edit {
+        margin-right: 8em;
+    }
+
+    p {
+        overflow-wrap: break-word;
+        width: 30em;
+    }
+}
+
+@media screen and (min-width: 1001px) {
+    section.hidden {
+        display: block;
+    }
+
+    main {
+        background-color: #fff;
+        margin-top: 0;
+    }
+
+    .header__tablist {
+        display: none;
+    }
+
+    .recipe__icon, img {
+        position: absolute;
+        max-width: 30em;
+    }
+
+    .recipe__icon {
+        left: .75em;
+        top: -.1em;
+    }
+
+    .recipe__button__add,
+    .recipe__button__edit {
+        position: absolute;
+        top: .7em;
+        left: 22em;
+    }
+
+    .subpage__description {
+        margin-left: 32em;
+        margin-right: 15em;
+        max-width: 40em;
+    }
+
+    .subpage__directions {
+        margin-left: 5em;
+        margin-top: 5em;
+    }
+
+    /* CSS minifier can optimize this */
+    .subpage__ingredients {
+        margin-left: 5em;
+        margin-top: 15em
+    }
+
+    p {
+        overflow-wrap: break-word;
+        width: 40em;
+    }
+}

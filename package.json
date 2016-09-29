@@ -1,0 +1,40 @@
+{
+  "name": "yum-foodz",
+  "version": "0.1.0",
+  "description": "Recipe manager with progressive enhancement",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "express": "^4.14.0",
+    "express-es6-template-engine": "^1.0.9",
+    "node-json-db": "^0.7.3"
+  },
+  "devDependencies": {
+    "closure-builder": "^2.0.17",
+    "cssnano": "^3.7.4",
+    "debug": "^2.2.0",
+    "glob": "^7.0.6",
+    "html-minifier": "^3.0.2"
+  },
+  "scripts": {
+    "serve": "node src/server/server.js",
+    "compile": "node build/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greenyouse/yum-foodz.git"
+  },
+  "keywords": [
+    "recipe",
+    "food",
+    "yum",
+    "progressive-web-app"
+  ],
+  "author": "Ed Babcock",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/greenyouse/yum-foodz/issues"
+  },
+  "homepage": "https://github.com/greenyouse/yum-foodz#readme"
+}

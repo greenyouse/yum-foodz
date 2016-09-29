@@ -1,0 +1,137 @@
+main li {
+    background-color: #fff;
+    box-shadow: 0 2px 2px 0  rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    cursor: pointer;
+    list-style: none;
+    width: 25em;
+    height: 25em;
+    padding-bottom: 1em;
+    margin: .5em -2em;
+}
+
+main li * {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.recipe__item p {
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: normal;
+    margin: 1em 2em;
+}
+
+.recipe__icon {
+    float: none;
+    font-size: 13em;
+    max-height: 7em;
+}
+
+/* tradeoff here, wider images work better */
+.recipe__image {
+    height: auto;
+    width: 30em;
+    max-width: 100%;
+    max-height: 16em;
+}
+
+@media screen and (max-width: 559px) {
+    body, main, main ul {
+        background-color: #fff;
+    }
+
+    main li {
+        box-shadow: none;
+        padding: .5em;
+        background-color: #fff;
+        border-bottom: 1px solid rgba(189, 189, 189, 12);
+        border-radius: 0px;
+        list-style: none;
+        width: 100%;
+        cursor: pointer;
+        height: 10em;
+    }
+
+    main li * {
+        text-align: left;
+    }
+
+    .recipe__icon {
+        font-size: 5em;
+        float: left;
+        margin-right: .5em;
+    }
+
+
+    .recipe__image {
+        float: left;
+        margin-right: 1em;
+        height: 6em;
+        width: 6em;
+    }
+
+}
+
+@media screen and (min-width: 560px) and (max-width: 798px) {
+    main li {
+        margin: .5em auto;
+    }
+
+    .recipe__icon {
+        float: none;
+        margin: 0;
+        max-height: 7em;
+        max-width: 100%;
+    }
+}
+
+/* material grid's small horizontal margins look funky on desktop, centering instead.
+Tablet doesn't have enough room for a material design's two column grid anyway. */
+@media screen and (min-width: 799px) and (max-width: 1169px) {
+    main li {
+        margin-left: auto;
+        margin-right: 22em;
+    }
+}
+
+@media screen and (min-width: 1170px) and (max-width: 1739px) {
+    main li:nth-child(odd) {
+        margin-bottom: 1em;
+        margin-left: 1em;
+    }
+
+    main li:nth-child(even) {
+        margin-left: 30em;
+        margin-top: -27em;
+    }
+}
+
+@media screen and (min-width: 1740px) {
+    main li:nth-child(1) {
+        margin-bottom: 1em;
+        margin-left: 3em;
+        margin-right: 5em;
+    }
+
+    main li:nth-child(3n + 4) {
+        margin-bottom: 1em;
+        margin-left: 3em;
+        margin-right: 5em;
+    }
+
+    main li:nth-child(3n + 2) {
+        margin-left: 35em;
+        margin-top: -27em;
+    }
+
+    main li:nth-child(3n) {
+        margin-left: 65em;
+        margin-top: -26.5em;
+    }
+}
