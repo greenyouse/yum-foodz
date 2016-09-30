@@ -34,7 +34,6 @@ ${(picture !== undefined) && picture.length > 0 ?
 <section class="subpage subpage__description" role="tabpanel" aria-expanded="true">
   <!-- TODO: could use map over the recipe for space -->
   ${actionBtn == 'edit' ?
-  <!-- lynx doesn't observe the hidden attribute ;) <a href="/edit/${id}" hidden>Edit recipe</a> -->
   `<div id="describeEdit" hidden>Edit recipe</div><a href="/edit/${id}"><div aria-describedby="describeEdit" class="recipe__button__edit"></div></a>` :
   <!-- FIXME: maybe not the best solution, still shows up in lynx -->
   `<form action="/new-recipe" method="post"><input name="id" value="${id}" hidden><input name="title" value="${title}" hidden><input name="picture" value="${picture}" hidden><input name="time" value="${time}" hidden><input name="difficulty" value="${difficulty}" hidden><input name="description" value="${description}" hidden><input name="ingredients" value="*${ingredients.join('*')}" hidden><input name="directions" value="*${directions.join('*')}" hidden><div id="describeAdd" hidden>Save this recipe</div><button aria-describedby="describeAdd" type="submit" class="recipe__button__add">+</button></form>`}

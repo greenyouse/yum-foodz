@@ -13,6 +13,8 @@
 <ul>
   ${recipeList.map(r => `
   <li>
+    <!-- for lynx compatiblility -->
+    <a href="/recipe/${r.id}" hidden>${r.title}</a>
     <article class="recipe__item">
       <!-- TODO: should improve outline for tabindex -->
       <a href="/recipe/${r.id}">
