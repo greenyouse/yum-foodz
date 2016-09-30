@@ -33,7 +33,6 @@ div.page {
     transition: transform 0.3s ease;
 }
 
-/* hidding the drawer without JS is clunky :( */
 #hamburger:checked ~ div.page {
     -webkit-transform: translate(80%, 0);
     transform: translate(80%, 0);
@@ -46,6 +45,20 @@ div.page {
     transition: transform 0.3s ease;
     box-shadow: 10em 0 1px rgba(0, 0, 0, 0.3);
 }
+
+#hamburger:checked ~ div.page label {
+    position: relative;
+}
+
+#hamburger:checked ~ div.page label::before {
+    content: '';
+    position: absolute;
+    bottom: -22em;
+    top: -1em;
+    right: -15em;
+    left: -.1em;
+}
+
 
 label {
     cursor: pointer;
