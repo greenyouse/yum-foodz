@@ -23,6 +23,7 @@ For running locally, clone and build like this:
 ```sh
 git clone https://github.com/greenyouse/yum-foodz
 cd yum-foodz
+npm install
 npm run compile
 npm run serve
 ```
