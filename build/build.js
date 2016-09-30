@@ -7,7 +7,7 @@ const closureBuilder = require('closure-builder'),
       path = require('path'),
       shell = require('shelljs');
 
-shell.mkdir('mkdir', '-p', ['dist/css', 'dist/js', 'dist/partial']);
+shell.mkdir('-p', ['dist/css', 'dist/js', 'dist/partial']);
 
 // closureBuilder works well for JS
 closureBuilder.build({
