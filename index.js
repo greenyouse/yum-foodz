@@ -8,12 +8,14 @@ const bodyParser = require('body-parser'),
       http = require('http'),
       jsonDB = require('node-json-db');
 
+var port = process.env.PORT || 5000;
+
 var app = express();
 app.engine('html', es6Renderer);
 app.set('views', 'dist');
 app.set('view engine', 'html');
 app.use(compression({level: 9}));
-app.set('port', 5000);
+app.set('port', port);
 app.use('*', wrapEtag);
 
 var urlencodedParser = bodyParser.urlencoded({
