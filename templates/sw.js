@@ -409,33 +409,36 @@ self.onfetch = function(event) {
   }
 };
 
-// out of space was going to send push notifications for food of the day :/
-// self.addEventListener('push', function(event) {
-//   var payload = event.data.text();
-//   event.waitUntil(
-//     self.registration.showNotification('Awesome food incoming!', {
-//       body: payload
-//     })
-//   );
-// });
+self.addEventListener('push', function(event) {
+  var payload = event.data.text(),
+      data = JSON.parse(payload),
+      title = data.title,
+      msg = data.message;
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body: msg,
+      icon: 'icons/favicon-32x32.png'
+    })
+  );
+});
 
-// self.addEventListener('notificationclick', function(event) {
-//   event.notification.close();
-//   event.waitUntil(
-//     clients.matchAll()
-//       .then(function(windowClients) {
-//         for (var i = 0; i < windowClients.length; i++) {
-//           var client = windowClients[i];
-//           if (client.url.match('/\/fotd') && 'focus' in client) {
-//             return client.focus();
-//           }
-//         }
-//         if (clients.openWindow) {
-//           return clients.openWindow(event.data.url);
-//         }
-//       })
-//   );
-// });
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll()
+      .then(function(windowClients) {
+        for (var i = 0; i < windowClients.length; i++) {
+          var client = windowClients[i];
+          if (client.url.match(/\/fotd/) && 'focus' in client) {
+            return client.focus();
+          }
+        }
+        if (clients.openWindow) {
+          return clients.openWindow('/fotd');
+        }
+      })
+  );
+});
 
 
 //////////////////////////////////////////////////////////////////
