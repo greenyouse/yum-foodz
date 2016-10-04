@@ -27,7 +27,7 @@ var urlencodedParser = bodyParser.urlencoded({
   extended: false, type: 'application/x-www-form-urlencoded'});
 
 var db = new jsonDB('recipesDB', true, false),
-    fotdDB = new jsonDB('fotd', false, false);
+    fotdDB = new jsonDB('fotd', true, false);
 
 // webPush.setGCMAPIKey(process.env.GCM_API_KEY);
 
@@ -403,8 +403,6 @@ function randInt(max, min) {
 
 /** fotd recipe */
 var dailyRecipe = {};
-/** clients to send pushes to */
-var subscribers = new Set();
 
 /**
  * Sets the food of the day recipe
@@ -415,8 +413,9 @@ function setFOTD() {
       index = randInt(max);
 
   dailyRecipe = recipes[index];
-}
 
+  sendNotification();
+}
 
 setFOTD();
 setInterval(setFOTD, 86400000); // delay of 1 day for daily changes
@@ -425,7 +424,7 @@ setInterval(setFOTD, 86400000); // delay of 1 day for daily changes
  * Fire off the FOTD push message
  */
 function sendNotification() {
-  var subscriptions = Array.from(subscribers);
+  var subscriptions = fotdDB.getData('/subscribers');
 
   if (subscriptions.length == 0) return;
 
@@ -456,6 +455,29 @@ function sendNotification() {
   });
 }
 
+/**
+ * Edit the subscriber list in the FOTD database
+ *
+ * @param {Object} subscriber A push subscription
+ * @param {string} action Database operation, either add or delete
+ * @return {Promise<string>}
+ */
+function modifySubscribers(subscriber, action) {
+  var subscribers = fotdDB.getData('/subscribers'),
+      subSet = new Set(subscribers),
+      modified;
+
+  if (action == 'add') {
+    modified = subSet.add(subscriber);
+  } else if (action == 'delete') {
+    modified = subSet.delete(subscriber);
+  }
+
+  var modArr = Array.from(modified);
+
+  fotdDB.push('/subscribers', modArr);
+}
+
 app.put('/subscription', function(req, res) {
   var body = '';
 
@@ -468,7 +490,7 @@ app.put('/subscription', function(req, res) {
     console.log('New Subscription: ', subscription.endpoint);
 
     // save the subscriber
-    subscribers.add(subscription);
+    modifySubscribers(subscription, 'add');
 
     writeCors(201, res);
   });
@@ -486,7 +508,7 @@ app.delete('/subscription', function(req, res) {
     console.log('Removing Subscription: ', subscription.endpoint);
 
     // delete the subscriber
-    subscribers.delete(subscription);
+    modifySubscribers(subscription, 'delete');
 
     writeCors(200, res);
   });
