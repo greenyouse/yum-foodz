@@ -15,6 +15,7 @@ It's my entry for the 10k Apart contest!
 - app shell architecture
 - works offline with ServiceWorkers
 - can install to home screen on mobile
+- sends food of the day updates using push notifications
 
 ## Try It Out
 
