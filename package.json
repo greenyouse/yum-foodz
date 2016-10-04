@@ -8,7 +8,8 @@
     "compression": "^1.6.2",
     "express": "^4.14.0",
     "express-es6-template-engine": "^1.0.9",
-    "node-json-db": "^0.7.3"
+    "node-json-db": "^0.7.3",
+    "web-push": "^3.0.0"
   },
   "devDependencies": {
     "closure-builder": "^2.0.17",

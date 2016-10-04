@@ -6,7 +6,12 @@ const bodyParser = require('body-parser'),
       express = require('express'),
       fs = require('fs'),
       http = require('http'),
-      jsonDB = require('node-json-db');
+      jsonDB = require('node-json-db'),
+      webPush = require('web-push');
+
+// mild obstrufication for bots scanning GH :)
+var serverKey = 'AIzaSyA7EGtPAfH5I2v058Lxx5QSroPOPV2i6gQ';
+webPush.setGCMAPIKey(serverKey.substr(0, serverKey.length - 2));
 
 var app = express();
 app.engine('html', es6Renderer);
@@ -83,78 +88,6 @@ function fetchRecipes(profileId, cb) {
     return cb([]);
   }
 }
-
-// extension of : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-/**
- * Picks a random integer in the range of max (exclusive) and min (inclusive)
- * with defaults of 0 and 11.
- *
- * @param {Number=} max The max value
- * @param {Number=} min The min value
- * @return {Number}
- */
-function randInt(max, min) {
-  max = max || 11,
-  min = min || 0;
-
-  return Math.floor(Math.random() * (max - min) + min);
-}
-
-/** fotd recipe */
-var dailyRecipe = {};
-/** clients to send pushes to */
-var subscribers = new Set();
-
-/**
- * Sets the food of the day recipe
- */
-function setFOTD() {
-  var recipes = fotdDB.getData('/recipes'),
-      max = recipes.length,
-      index = randInt(max);
-
-  dailyRecipe = recipes[index];
-}
-
-/**
- * Fire off the FOTD push message
- */
-// TODO: not adding push notifications because of client-side space constraints
-// yet to add: REST subscriptions endpoints, client-side subscribe button for
-// browsers with service workers, SW push, msg nofitication, and subscription
-// parts
-// function sendNotification() {
-//   var subscriptions = Array.from(subscribers);
-
-//   if (subscriptions.length == 0) return;
-
-//   // TODO: could change this part...
-//   var title = "Yum Foodz",
-//       messages = ["Awesome recipe incoming", "Check out your new recipe"],
-//       index = randInt(messages.length),
-//       message = messages[index],
-//       payload = JSON.stringify({
-//         "title": title,
-//         "message": message
-//       });
-
-//   subscriptions.map(subscriber => {
-//     var {endpoint, key, auth} = subscriber;
-
-//     webPush.sendNotification(endpoint, {
-//       TTL: 300,
-//       payload: payload,
-//       userPublicKey: key,
-//       userAuth: auth
-//     }).catch(error => {
-//       debug('Push Error: ', error);
-//     });
-
-//   });
-// }
-
-setFOTD();
-setInterval(setFOTD, 86400000); // delay of 1 day for daily changes
 
 /**
  * Converts a asterisk delimited string of steps into an array
@@ -427,6 +360,135 @@ app.post('/sync', (req, res) => {
   // merge recipe data for the profile
   db.push('/' + profileId, recipes, false);
 });
+
+
+//////////////////////////////////////////////////////////////////////
+/// push subscription endpoints
+
+// cors middleware for requests
+function writeCors(statusCode, response) {
+  response.writeHead(statusCode, {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "PUT, DELETE", // OK since it's only push
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type"});
+
+  response.write('true');
+  response.end();
+}
+
+// cors preflight
+app.options('/subscription', function(req, res) {
+
+  writeCors(200, res);
+});
+
+// extension of : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+/**
+ * Picks a random integer in the range of max (exclusive) and min (inclusive)
+ * with defaults of 0 and 11.
+ *
+ * @param {Number=} max The max value
+ * @param {Number=} min The min value
+ * @return {Number}
+ */
+function randInt(max, min) {
+  max = max || 11,
+  min = min || 0;
+
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+/** fotd recipe */
+var dailyRecipe = {};
+/** clients to send pushes to */
+var subscribers = new Set();
+
+/**
+ * Sets the food of the day recipe
+ */
+function setFOTD() {
+  var recipes = fotdDB.getData('/recipes'),
+      max = recipes.length,
+      index = randInt(max);
+
+  dailyRecipe = recipes[index];
+}
+
+
+setFOTD();
+setInterval(setFOTD, 86400000); // delay of 1 day for daily changes
+
+/**
+ * Fire off the FOTD push message
+ */
+function sendNotification() {
+  var subscriptions = Array.from(subscribers);
+
+  if (subscriptions.length == 0) return;
+
+  var title = "Yum Foodz",
+      messages = ["Awesome recipe incoming", "Check out your new recipe"],
+      index = randInt(messages.length),
+      message = messages[index],
+      payload = JSON.stringify({
+        "title": title,
+        "message": message
+      });
+
+  subscriptions.map(subscriber => {
+    var endpoint = subscriber.endpoint,
+        key = subscriber.keys.p256dh,
+        auth = subscriber.keys.auth;
+
+    webPush.sendNotification(endpoint, {
+      TTL: 300,
+      payload: payload,
+      userPublicKey: key,
+      userAuth: auth
+    }).catch(error => {
+      debug('Push Error: ', error);
+    });
+
+  });
+}
+
+app.put('/subscription', function(req, res) {
+  var body = '';
+
+  req.on('data', function(chunk) {
+    body += chunk;
+  });
+
+  req.on('end', function() {
+    var subscription = JSON.parse(body);
+    // console.log('New Subscription: ', subscription.endpoint);
+
+    // save the subscriber
+    subscribers.add(subscription);
+
+    writeCors(201, res);
+  });
+});
+
+app.delete('/subscription', function(req, res) {
+  var body = '';
+
+  req.on('data', function(chunk) {
+    body += chunk;
+  });
+
+  req.on('end', function() {
+    var subscription = JSON.parse(body);
+    // console.log('Removing Subscription: ', subscription.endpoint);
+
+    // delete the subscriber
+    subscribers.delete(subscription);
+
+    writeCors(200, res);
+  });
+});
+
 
 var server = http.createServer(app).listen(app.get('port'), function() {
   console.log('Started server on port ' + app.get('port'));
