@@ -1,33 +1,53 @@
-{"recipes":
- [{
-   "id": "50bd63f5-3d4b-4a33-a286-d19dfdf89096",
-   "picture": "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fmvchaikovskaya.files.wordpress.com%2F2013%2F06%2Ffood-french-fries-onions-fast-food-hamburgers.jpg&f=1",
-   "title": "burgers",
-   "time": "30min",
-   "difficulty": "2",
-   "description": "Tasty burgers on the grill.",
-   "ingredients": ["4 burger buns", "1lb ground beef", "cheese", "1 head lettuce", "1 tomato", "1/2 onion"],
-   "directions": ["Chop up the vegetables to your liking.",
-                  "Divide the beef into quarters and fire up the grill.",
-                  "Cook the beef patties for about 7 minutes per side.",
-                  "After the patties are done cooking, char the burger buns on the grill for about 30 seconds.",
-                  "Pull the buns and add the beef, cheese, and veggies (can use leftover vegetables for a salad)."]
- },
-  {
-    "id": "d53fa622-fa8b-4315-9368-cf4a09fa5f0b",
-    "picture": "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fblog.patriotgetaways.com%2Fwp-content%2Fuploads%2F2010%2F04%2Fpancakes.jpg%3Fw%3D300&f=1",
-    "title": "pancakes",
-    "time": "30min",
-    "difficulty": "3",
-    "description": "Awesome pancakes!",
-    "ingredients": ["1.5 cups all purpose flour", ".25 cups sugar", "2 tsp. baking powder",
-                    "1.5 tsp. salt", "1 egg", ".5 cups milk", ".25 cups oil"],
-    "directions": ["Mix the flour, sugar, baking powder, and salt together.",
-                   "In a separate bowl beat the eggs, milk, and oil.",
-                   "Combine the flour mixture with the egg mix and stir.",
-                   "On a hot gridle pour out the pancake mix.",
-                   "Cook until the pancakes are bubbling and then flip.",
-                   "Pull them from the pan once they're done."]
-  }
- ]
+{
+    "recipes": [
+        {
+            "id": "50bd63f5-3d4b-4a33-a286-d19dfdf89096",
+            "picture": "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fmvchaikovskaya.files.wordpress.com%2F2013%2F06%2Ffood-french-fries-onions-fast-food-hamburgers.jpg&f=1",
+            "title": "burgers",
+            "time": "30min",
+            "difficulty": "2",
+            "description": "Tasty burgers on the grill.",
+            "ingredients": [
+                "4 burger buns",
+                "1lb ground beef",
+                "cheese",
+                "1 head lettuce",
+                "1 tomato",
+                "1/2 onion"
+            ],
+            "directions": [
+                "Chop up the vegetables to your liking.",
+                "Divide the beef into quarters and fire up the grill.",
+                "Cook the beef patties for about 7 minutes per side.",
+                "After the patties are done cooking, char the burger buns on the grill for about 30 seconds.",
+                "Pull the buns and add the beef, cheese, and veggies (can use leftover vegetables for a salad)."
+            ]
+        },
+        {
+            "id": "d53fa622-fa8b-4315-9368-cf4a09fa5f0b",
+            "picture": "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fblog.patriotgetaways.com%2Fwp-content%2Fuploads%2F2010%2F04%2Fpancakes.jpg%3Fw%3D300&f=1",
+            "title": "pancakes",
+            "time": "30min",
+            "difficulty": "3",
+            "description": "Awesome pancakes!",
+            "ingredients": [
+                "1.5 cups all purpose flour",
+                ".25 cups sugar",
+                "2 tsp. baking powder",
+                "1.5 tsp. salt",
+                "1 egg",
+                ".5 cups milk",
+                ".25 cups oil"
+            ],
+            "directions": [
+                "Mix the flour, sugar, baking powder, and salt together.",
+                "In a separate bowl beat the eggs, milk, and oil.",
+                "Combine the flour mixture with the egg mix and stir.",
+                "On a hot gridle pour out the pancake mix.",
+                "Cook until the pancakes are bubbling and then flip.",
+                "Pull them from the pan once they're done."
+            ]
+        }
+    ],
+    "subscribers": []
 }
