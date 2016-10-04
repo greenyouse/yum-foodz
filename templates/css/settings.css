@@ -1,0 +1,90 @@
+body, main {
+    background-color: #fff;
+}
+
+/* TODO:minifier stips these animations :/ */
+/* @keyframes button-ripple-on { */
+/*     from { box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.6); } */
+/*     to { box-shadow: 0 1px 15px 5px rgba(0, 0, 0, 0.6); } */
+/* } */
+
+/* @keyframes button-ripple-off { */
+/*     from { box-shadow: 0 0 0 0 rgba(103,58,183, 0.2); } */
+/*     to { box-shadow: 0 1px 15px 5px rgba(103,58,183, 0.2); } */
+/* } */
+
+#pushBtn {
+    display: block;
+    width: 2.5em;
+    height: .8em;
+    border-radius: 25px;
+    background-color: gray;
+    display: block;
+    margin-left: 1.3em;
+}
+
+#pushBtn[aria-pressed=true] {
+    background-color: #D1C4E9;
+}
+
+#pushBtn::before {
+    display: block;
+    position: relative;
+    background-color: #fafafa;
+    border-radius: 50%;
+    height: 1.2em;
+    width: 1.2em;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.6);
+    content: 'ok';
+    color: #fafafa;
+    top: -.25em;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    transition: transform 0.1s ease;
+    /* anitmation-duration: .2s; */
+    /* animation-name: button-ripple-on; */
+}
+
+#pushBtn[aria-pressed=true]::before {
+    -webkit-transform: translate(1.3em, 0);
+    transform: translate(1.3em, 0);
+    transition: transform 0.1s ease;
+    background-color: #673AB7;
+    color: #673AB7;
+    /* anitmation-duration: .2s; */
+    /* animation-name: button-ripple-off; */
+}
+
+#pushLabel {
+    display: block;
+    margin-left: 1em;
+}
+
+/* push only works on modern browsers so flexbox should work too */
+#settingsPane > article {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/* make them share the same row */
+#settingsPane > article > * {
+    order: 0;
+    flex: 0 1 auto;
+}
+
+#settingsFallback {
+    margin: 0 2em;
+    text-align: center;
+}
+
+@media screen and (min-width: 800px) {
+    #settingsPane  {
+        margin-left: -12em;
+    }
+
+    #settingsFallback {
+        margin: 0;
+    }
+}
