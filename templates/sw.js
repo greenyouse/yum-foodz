@@ -410,20 +410,33 @@ self.onfetch = function(event) {
   }
 };
 
+/**
+ * Gets a random title from the titles array
+ *
+ * @return {string}
+ */
+sw.getMessage = function() {
+  var messages = ["Awesome recipe incoming", "Check out your new recipe"],
+      index = Math.floor(Math.random() * messages.length);
+
+  return messages[index];
+};
+
 self.addEventListener('push', function(event) {
-  var payload = event.data.text(),
-      data = JSON.parse(payload),
-      title = data.title,
-      msg = data.message;
+  console.log('push', event);
+  var title = 'Yum Foodz',
+      msg = sw.getMessage();
   event.waitUntil(
     self.registration.showNotification(title, {
       body: msg,
-      icon: 'icons/favicon-32x32.png'
+      icon: 'icons/favicon-32x32.png',
+      vibrate: [100, 200, 100, 200]
     })
   );
 });
 
 self.addEventListener('notificationclick', function(event) {
+  console.log('click', event);
   event.notification.close();
   event.waitUntil(
     clients.matchAll()

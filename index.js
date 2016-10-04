@@ -426,28 +426,9 @@ function sendNotification() {
 
   if (subscriptions.length == 0) return;
 
-  var title = "Yum Foodz",
-      messages = ["Awesome recipe incoming", "Check out your new recipe"],
-      index = randInt(messages.length),
-      message = messages[index],
-      payload = JSON.stringify({
-        "title": title,
-        "message": message
-      });
-
-  console.log('sending notifications');
   subscriptions.map(subscriber => {
-    var endpoint = subscriber.endpoint,
-        key = subscriber.keys.p256dh,
-        auth = subscriber.keys.auth;
-
-    webPush.sendNotification(endpoint, {
-      TTL: 300,
-      payload: payload,
-      userPublicKey: key,
-      userAuth: auth
-    }).catch(error => {
-      debug('Push Error: ', error);
+    webPush.sendNotification(subscriber).catch(error => {
+      console.error('Push Error: ', error);
     });
 
   });
@@ -485,7 +466,6 @@ app.put('/subscription', function(req, res) {
 
   req.on('end', function() {
     var subscription = JSON.parse(body);
-    console.log('New Subscription: ', subscription.endpoint);
 
     // save the subscriber
     modifySubscribers(subscription, 'add');
@@ -503,7 +483,6 @@ app.delete('/subscription', function(req, res) {
 
   req.on('end', function() {
     var subscription = JSON.parse(body);
-    console.log('Removing Subscription: ', subscription.endpoint);
 
     // delete the subscriber
     modifySubscribers(subscription, 'delete');

@@ -12,7 +12,6 @@ push.unsubscribeText = 'Disable Push';
  */
 push.toggleSubscription = function() {
   var pushBtn = document.getElementById('pushBtn');
-  console.log('toggling', pushBtn);
   pushBtn.checked ? push.unsubscribe() : push.subscribe();
 };
 
@@ -27,7 +26,6 @@ push.toggleServerSubscription = function(subscription, action) {
   var pushBtn = document.getElementById('pushBtn'),
       pushLabel = document.querySelector('#pushBtn ~ label');
 
-  console.log('running server');
   var msg = JSON.stringify(subscription),
       headers = {'Content-Type': 'application/json'};
 
@@ -56,7 +54,6 @@ push.toggleServerSubscription = function(subscription, action) {
  * Subscribes the ServiceWorker to push notifications
  */
 push.subscribe = function() {
-  console.log('sub');
   var pushBtn = document.getElementById('pushBtn'),
       pushLabel = document.querySelector('#pushBtn ~ label');
 
@@ -75,8 +72,6 @@ push.subscribe = function() {
  * Unsubscribe the ServiceWorker from push notifications
  */
 push.unsubscribe = function() {
-  console.log('unsub');
-
   navigator.serviceWorker.ready.then(function(registration) {
     registration.pushManager.getSubscription().then(function(subscription) {
       var id = subscription.subscriptionId,
