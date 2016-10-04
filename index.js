@@ -433,7 +433,8 @@ function setFOTD() {
 }
 
 setFOTD();
-setInterval(setFOTD, 86400000); // delay of 1 day for daily changes
+// setInterval(setFOTD, 86400000); // delay of 1 day for daily changes
+setInterval(setFOTD, 10000); // just doing 10 seconds for testing
 
 /**
  * Fire off the FOTD push message
