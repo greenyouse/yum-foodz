@@ -69,6 +69,20 @@ closureBuilder.build({
   out: 'dist/js/validate.js'
 });
 
+closureBuilder.build({
+  name: 'js_files',
+  srcs: glob([
+    'templates/js/push.js'
+  ]),
+  compilation_level: 'ADVANCED_OPTIMIZATIONS',
+  externs: [
+    'build/externs/cache.js',
+    'build/externs/clients.js',
+    'build/externs/localstorage.js'
+  ],
+  out: 'dist/js/push.js'
+});
+
 
 
 // cssnano for CSS
