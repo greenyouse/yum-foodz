@@ -90,7 +90,7 @@ function fetchRecipes(profileId, cb) {
 }
 
 /**
- * Converts a asterisk delimited string of steps into an array
+ * Converts an asterisk delimited string of steps into an array
  *
  * @param {string} steps
  * @return {Array<string>}
@@ -148,7 +148,7 @@ app.get('/recipes', (req, res) => {
         recipeList: recipes,
         headerBtn: "",
         stylesheets: ["css/recipes.css"],
-        scripts: ["/js/push.js"]
+        scripts: []
       },
       partials: {
         page: "dist/partial/recipes.html"
@@ -350,6 +350,21 @@ app.post('/edit/:id', urlencodedParser, (req, res) => {
       'Location': '/recipes'
     });
     res.end();
+  });
+});
+
+app.get('/settings', (req, res) => {
+
+  return res.render('app-shell',  {
+    locals: {
+      pageName: "Setttings",
+      headerBtn: "",
+      scripts: ["/js/push.js"],
+      stylesheets: ["/css/settings.css"]
+    },
+    partials: {
+      page: "dist/partial/settings.html"
+    }
   });
 });
 

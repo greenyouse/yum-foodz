@@ -2,17 +2,20 @@
 
 var push = {};
 /** @type {string} */
-push.subscribeText = 'Enable Push'; // easier to modify the msg this way
+push.subscribeText = 'Show Notifications'; // easier to modify the msg this way
 /** @type {string} */
-push.unsubscribeText = 'Disable Push';
+push.unsubscribeText = 'Disable Notifications';
 
 /**
  * Toggle the ServiceWorker push subscription
  *
  */
 push.toggleSubscription = function() {
-  var pushBtn = document.getElementById('pushBtn');
-  pushBtn.checked ? push.unsubscribe() : push.subscribe();
+  var pushBtn = document.getElementById('pushBtn'),
+      pressed = pushBtn.getAttribute('aria-pressed');
+
+  console.log('pressed', pressed);
+  pressed == "true" ? push.unsubscribe() : push.subscribe();
 };
 
 /**
@@ -22,26 +25,21 @@ push.toggleSubscription = function() {
  * @param {string} action Either subscribe or unsubscribe
  */
 push.toggleServerSubscription = function(subscription, action) {
+  console.log(action);
 
   var pushBtn = document.getElementById('pushBtn'),
-      pushLabel = document.querySelector('#pushBtn ~ label');
+      pushLabel = document.getElementById('pushLabel');
 
   var msg = JSON.stringify(subscription),
       headers = {'Content-Type': 'application/json'};
 
   if (action == 'subscribe') {
-    pushBtn.setAttribute('checked', true);
-    pushLabel.textContent = push.unsubscribeText;
-
     fetch('/subscription', {
       method: 'PUT',
       headers: headers,
       body: msg
     });
   } else {
-    pushBtn.removeAttribute('checked');
-    pushLabel.textContent = push.subscribeText;
-
     fetch('/subscription', {
       method: 'DELETE',
       headers: headers,
@@ -49,13 +47,15 @@ push.toggleServerSubscription = function(subscription, action) {
     });
   }
 };
-
 /**
  * Subscribes the ServiceWorker to push notifications
  */
 push.subscribe = function() {
   var pushBtn = document.getElementById('pushBtn'),
-      pushLabel = document.querySelector('#pushBtn ~ label');
+      pushLabel = document.getElementById('pushLabel');
+
+  pushBtn.setAttribute('aria-pressed', true);
+  pushLabel.textContent = push.unsubscribeText;
 
   navigator.serviceWorker.ready.then(function(registration) {
     registration.pushManager.subscribe({userVisibleOnly: true})
@@ -75,8 +75,13 @@ push.unsubscribe = function() {
   navigator.serviceWorker.ready.then(function(registration) {
     registration.pushManager.getSubscription().then(function(subscription) {
       var id = subscription.subscriptionId,
-          pushLabel = document.querySelector('#pushBtn ~ label');
+          pushBtn = document.getElementById('pushBtn'),
+          pushLabel = document.getElementById('pushLabel');
 
+      pushBtn.setAttribute('aria-pressed', false);
+      pushLabel.textContent = push.subscribeText;
+
+      console.log('sub', subscription);
       push.toggleServerSubscription(subscription, 'unsubscribe');
 
       subscription.unsubscribe().then(function() {
@@ -98,22 +103,28 @@ push.init = function() {
 
     // add the button for push subscriptions when SW is available
     /** @type {Element} */
-    var appHeader = document.getElementsByTagName('header')[0],
+    var settingsPane = document.getElementById('settingsPane'),
         /** @type {Element} */
         br = document.createElement('br'),
         /** @type {Element} */
-        div = document.createElement('div');
+        article = document.createElement('article');
 
-    div.innerHTML = '<input type="checkbox" id="pushBtn"><label>' + push.subscribeText + '</label>';
-    appHeader.appendChild(br);
-    appHeader.appendChild(div);
+    article.innerHTML = `<div id="pushBtn" tabindex="0" role="button" aria-pressed="false" aria-describeby="pushLabel"></div>
+      <p id="pushLabel">${push.subscribeText}</p>`;
+
+    settingsPane.appendChild(br);
+    settingsPane.appendChild(article);
 
     var pushBtn = document.getElementById('pushBtn'),
-        pushLabel = document.querySelector('#pushBtn ~ label');
+        pushLabel = document.getElementById('pushLabel');
 
-    // set up a button event listener
-    pushLabel.addEventListener('click', push.toggleSubscription);
-    pushLabel.addEventListener('touchend', push.toggleSubscription);
+    // set up button event listeners
+    // chrome handles click delay on mobile now (FF and Opera?)
+    pushBtn.addEventListener('click', push.toggleSubscription);
+    pushBtn.addEventListener('keydown', function(event) {
+      if (event.key == 'Enter')
+        push.toggleSubscription();
+    });
 
     // push subscription initialization
     navigator.serviceWorker.ready.then(function(registration) {
@@ -128,5 +139,18 @@ push.init = function() {
         }
       });
     });
+  } else {
+    /** @type {Element} */
+    var settingsPane = document.getElementById('settingsPane'),
+        /** @type {Element} */
+        br = document.createElement('br'),
+        /** @type {Element} */
+        text = document.createElement('h3');
+
+    // TODO: should probly think of a better display here, ugly
+    text.textContent = 'No service worker detected, no settings to add';
+    text.setAttribute('id', 'settingsFallback');
+    settingsPane.appendChild(br);
+    settingsPane.appendChild(text);
   }
 }();
