@@ -1,5 +1,5 @@
 // cache busting is done by upgrading the cache version
-var staticCache = 'foodz-cache-v1',
+var staticCache = 'foodz-cache-v2',
     imgCache = 'foodz-imgs-cache-v1',
     CURRENT_CACHES = [
       staticCache,
@@ -8,17 +8,20 @@ var staticCache = 'foodz-cache-v1',
 
 var staticPrecache = [
   '/app-shell.html',
-  '/partial/recipe.html',
-  '/partial/recipes.html',
-  '/partial/new-recipe.html',
   '/css/app-shell.css',
   '/css/new-recipe.css',
   '/css/noscript.css',
   '/css/recipe.css',
   '/css/recipes.css',
+  '/css/settings.css',
   '/js/app.js',
+  '/js/push.css',
   '/js/recipe.js',
   '/js/validate.js',
+  '/partial/new-recipe.html',
+  '/partial/recipe.html',
+  '/partial/recipes.html',
+  '/partial/settings.html',
   '/images/pencil.svg',
   '/manifest.json',
   '/icons/favicon.ico'
