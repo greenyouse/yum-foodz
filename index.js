@@ -10,7 +10,7 @@ const bodyParser = require('body-parser'),
       webPush = require('web-push');
 
 // mild obstrufication for bots scanning GH :)
-var serverKey = 'AIzaSyA7EGtPAfH5I2v058Lxx5QSroPOPV2i6gQ';
+var serverKey = 'AIzaSyAOZEY0bSj5MVlUud66Q5a26MiczTIHFqc4O';
 webPush.setGCMAPIKey(serverKey.substr(0, serverKey.length - 2));
 
 var port = process.env.PORT || 5000;
@@ -150,7 +150,7 @@ app.get('/recipes', (req, res) => {
         recipeList: recipes,
         headerBtn: "",
         stylesheets: ["css/recipes.css"],
-        scripts: []
+        scripts: ["/js/push.js"]
       },
       partials: {
         page: "dist/partial/recipes.html"
@@ -438,6 +438,7 @@ function sendNotification() {
         "message": message
       });
 
+  console.log('sending notifications');
   subscriptions.map(subscriber => {
     var endpoint = subscriber.endpoint,
         key = subscriber.keys.p256dh,
@@ -464,7 +465,7 @@ app.put('/subscription', function(req, res) {
 
   req.on('end', function() {
     var subscription = JSON.parse(body);
-    // console.log('New Subscription: ', subscription.endpoint);
+    console.log('New Subscription: ', subscription.endpoint);
 
     // save the subscriber
     subscribers.add(subscription);
@@ -482,7 +483,7 @@ app.delete('/subscription', function(req, res) {
 
   req.on('end', function() {
     var subscription = JSON.parse(body);
-    // console.log('Removing Subscription: ', subscription.endpoint);
+    console.log('Removing Subscription: ', subscription.endpoint);
 
     // delete the subscriber
     subscribers.delete(subscription);

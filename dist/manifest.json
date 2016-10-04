@@ -39,10 +39,12 @@
       "density": "4.0"
     }
   ],
-  "start_url": "/recipes",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#512DA8",
   "background_color": "#512DA8",
+  "gcm_sender_id": "713266025655",
+  "gcm_user_visible_only": true,
   "prefer_related_applications": true,
   "related_applications": [
     {

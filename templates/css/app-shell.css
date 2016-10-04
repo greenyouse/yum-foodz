@@ -228,4 +228,8 @@ main {
     main {
         margin-left: 14em;
     }
+
+    #pushBtn ~ label {
+        margin-left: 15em;
+    }
 }
