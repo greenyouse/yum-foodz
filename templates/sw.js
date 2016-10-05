@@ -1,5 +1,5 @@
 // cache busting is done by upgrading the cache version
-var staticCache = 'foodz-cache-v2',
+var staticCache = 'foodz-cache-v3',
     imgCache = 'foodz-imgs-cache-v1',
     CURRENT_CACHES = [
       staticCache,
@@ -15,9 +15,9 @@ var staticPrecache = [
   '/css/recipes.css',
   '/css/settings.css',
   '/js/app.js',
-  '/js/push.css',
   '/js/recipe.js',
   '/js/validate.js',
+  '/js/push.js',
   '/partial/new-recipe.html',
   '/partial/recipe.html',
   '/partial/recipes.html',
@@ -62,7 +62,7 @@ self.onactivate = function(event) {
       ).then(function() {
         // get the database set up
         database.init().then(function() {
-          console.log('database loaded!');
+          // console.log('database loaded!');
           // sync back changes that were made offline
           // avoiding the queued backlog technique for simplicity
           sw.syncToServer();
@@ -353,7 +353,7 @@ sw.postRequest = function(request) {
   if (url.match(/\/new-recipe/)) {
     return sw.readFormBody(request).then(function(newRecipe) {
 
-      console.log('recipe', newRecipe);
+      // console.log('recipe', newRecipe);
       newRecipe.id = makeUUID();
       newRecipe.ingredients = sw.formatSteps(newRecipe.ingredients);
       newRecipe.directions = sw.formatSteps(newRecipe.directions);
@@ -425,7 +425,7 @@ sw.getMessage = function() {
 };
 
 self.addEventListener('push', function(event) {
-  console.log('push', event);
+  // console.log('push', event);
   var title = 'Yum Foodz',
       msg = sw.getMessage();
   event.waitUntil(
@@ -438,7 +438,7 @@ self.addEventListener('push', function(event) {
 });
 
 self.addEventListener('notificationclick', function(event) {
-  console.log('click', event);
+  // console.log('click', event);
   event.notification.close();
   event.waitUntil(
     clients.matchAll()
