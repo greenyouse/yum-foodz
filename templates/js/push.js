@@ -14,7 +14,6 @@ push.toggleSubscription = function() {
   var pushBtn = document.getElementById('pushBtn'),
       pressed = pushBtn.getAttribute('aria-pressed');
 
-  console.log('pressed', pressed);
   pressed == "true" ? push.unsubscribe() : push.subscribe();
 };
 
@@ -25,7 +24,6 @@ push.toggleSubscription = function() {
  * @param {string} action Either subscribe or unsubscribe
  */
 push.toggleServerSubscription = function(subscription, action) {
-  console.log(action);
 
   var pushBtn = document.getElementById('pushBtn'),
       pushLabel = document.getElementById('pushLabel');
@@ -81,7 +79,6 @@ push.unsubscribe = function() {
       pushBtn.setAttribute('aria-pressed', false);
       pushLabel.textContent = push.subscribeText;
 
-      console.log('sub', subscription);
       push.toggleServerSubscription(subscription, 'unsubscribe');
 
       subscription.unsubscribe().then(function() {
@@ -105,6 +102,8 @@ push.init = function() {
     /** @type {Element} */
     var settingsPane = document.getElementById('settingsPane'),
         /** @type {Element} */
+        fallback = document.getElementById('settingsFallback'),
+        /** @type {Element} */
         br = document.createElement('br'),
         /** @type {Element} */
         article = document.createElement('article');
@@ -112,6 +111,7 @@ push.init = function() {
     article.innerHTML = `<div id="pushBtn" tabindex="0" role="button" aria-pressed="false" aria-describeby="pushLabel"></div>
       <p id="pushLabel">${push.subscribeText}</p>`;
 
+    settingsPane.removeChild(fallback);
     settingsPane.appendChild(br);
     settingsPane.appendChild(article);
 
@@ -139,18 +139,5 @@ push.init = function() {
         }
       });
     });
-  } else {
-    /** @type {Element} */
-    var settingsPane = document.getElementById('settingsPane'),
-        /** @type {Element} */
-        br = document.createElement('br'),
-        /** @type {Element} */
-        text = document.createElement('h3');
-
-    // TODO: should probly think of a better display here, ugly
-    text.textContent = 'No service worker detected, no settings to add';
-    text.setAttribute('id', 'settingsFallback');
-    settingsPane.appendChild(br);
-    settingsPane.appendChild(text);
   }
 }();
