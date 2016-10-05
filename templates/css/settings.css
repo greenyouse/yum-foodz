@@ -2,17 +2,6 @@ body, main {
     background-color: #fff;
 }
 
-/* TODO:minifier stips these animations :/ */
-/* @keyframes button-ripple-on { */
-/*     from { box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.6); } */
-/*     to { box-shadow: 0 1px 15px 5px rgba(0, 0, 0, 0.6); } */
-/* } */
-
-/* @keyframes button-ripple-off { */
-/*     from { box-shadow: 0 0 0 0 rgba(103,58,183, 0.2); } */
-/*     to { box-shadow: 0 1px 15px 5px rgba(103,58,183, 0.2); } */
-/* } */
-
 #pushBtn {
     display: block;
     width: 2.5em;
@@ -21,6 +10,7 @@ body, main {
     background-color: gray;
     display: block;
     margin-left: 1.3em;
+    outline: none;
 }
 
 #pushBtn[aria-pressed=true] {
@@ -70,7 +60,6 @@ body, main {
 
 /* make them share the same row */
 #settingsPane > article > * {
-    order: 0;
     flex: 0 1 auto;
 }
 
@@ -87,4 +76,12 @@ body, main {
     #settingsFallback {
         margin: 0;
     }
+}
+
+#pushBtn:focus::before {
+    box-shadow: 0 1px 15px 5px rgba(0,0,0,0.6);
+}
+
+#pushBtn[aria-pressed=true]:focus ~ #pushBtn::before {
+    box-shadow: 0 1px 15px 5px rgba(103,58,183, 0.2);
 }
