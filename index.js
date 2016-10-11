@@ -430,6 +430,13 @@ app.post('/sync', (req, res) => {
   db.push('/' + profileId, recipes, false);
 });
 
+app.get('/manifest.json', (req, res) => {
+  fs.readFile('dist/manifest.json', 'utf-8', (error, data) => {
+    res.header('Content-Type', 'application/json');
+    res.send(data);
+  });
+});
+
 var server = http.createServer(app).listen(app.get('port'), function() {
   console.log('Started server on port ' + app.get('port'));
 });
