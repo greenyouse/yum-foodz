@@ -39,7 +39,7 @@
       "density": "4.0"
     }
   ],
-  "start_url": "/",
+  "start_url": "/recipes",
   "display": "standalone",
   "theme_color": "#512DA8",
   "background_color": "#512DA8",
