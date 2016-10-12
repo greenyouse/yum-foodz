@@ -20,7 +20,6 @@ var staticPrecache = [
   '/js/recipe.js',
   '/js/validate.js',
   '/images/pencil.svg',
-  '/manifest.json',
   '/icons/favicon.ico'
 ];
 
