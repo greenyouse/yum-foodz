@@ -20,7 +20,7 @@
     "shelljs": "^0.7.4"
   },
   "scripts": {
-    "serve": "node index.js",
+    "start": "node index.js",
     "compile": "node build/build.js"
   },
   "repository": {
