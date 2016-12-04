@@ -19,6 +19,8 @@ It's my entry for the 10k Apart contest!
 
 ## Try It Out
 
+There's a live version [hosted here](https://yum-foodz.herokuapp.com).
+
 For running locally, clone and build like this:
 
 ```sh
