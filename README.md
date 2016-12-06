@@ -19,7 +19,7 @@ It's my entry for the 10k Apart contest!
 
 ## Try It Out
 
-There's a live version [hosted here](https://yum-foodz.herokuapp.com).
+There's a live version without push notifications [hosted here](yum-foodz-10kapart2016.azurewebsites.net/recipes).
 
 For running locally, clone and build like this:
 
