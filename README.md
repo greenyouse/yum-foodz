@@ -5,7 +5,8 @@ with an offline-first approach and can do client-side routing and
 templating if ServiceWorkers are enabled. On more limited browsers it
 will fall back to using server-side templating with HTTP caching. 
 
-It's my entry for the 10k Apart contest!
+It was my entry for the 10k Apart contest and final project for my
+Senior Web Developer Nanodegree from Udacity.
 
 ## Features
 
@@ -19,7 +20,9 @@ It's my entry for the 10k Apart contest!
 
 ## Try It Out
 
-There's a live version without push notifications [hosted here](yum-foodz-10kapart2016.azurewebsites.net/recipes).
+There's a live version [hosted here](https://yum-foodz.heroku.com). Push
+notifications aren't currently working in Chrome browsers (external library
+issue) but Firefox works great.
 
 For running locally, clone and build like this:
 
