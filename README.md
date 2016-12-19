@@ -20,7 +20,7 @@ Senior Web Developer Nanodegree from Udacity.
 
 ## Try It Out
 
-There's a live version [hosted here](https://yum-foodz.heroku.com). Push
+There's a live version [hosted here](https://yum-foodz.herokuapp.com). Push
 notifications aren't currently working in Chrome browsers (external library
 issue) but Firefox works great.
 
