@@ -1,11 +1,11 @@
 # Yum Foodz
 
 [Yum Foodz](https://yum-foodz.herokuapp.com) is a recipe manager that
-uses cutting edge features of a progressive web app.
+that demonstrates the features of a progressive web app.
 
-It was my entry for the 10k Apart contest and final project for my
+This was my entry for the 10k Apart contest and final project for my
 Senior Web Developer Nanodegree from Udacity. It was cooked up in about
-two weeks to meet the contest deadline.
+two weeks to meet the contest deadline.  
 
 ## Features
 
