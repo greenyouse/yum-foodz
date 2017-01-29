@@ -1,12 +1,11 @@
 # Yum Foodz
 
-This is a recipe manager to make organizing recipes easier. It was built
-with an offline-first approach and can do client-side routing and
-templating if ServiceWorkers are enabled. On more limited browsers it
-will fall back to using server-side templating with HTTP caching. 
+[Yum Foodz](https://yum-foodz.herokuapp.com) is a recipe manager that
+uses cutting edge features of a progressive web app.
 
 It was my entry for the 10k Apart contest and final project for my
-Senior Web Developer Nanodegree from Udacity.
+Senior Web Developer Nanodegree from Udacity. It was cooked up in about
+two weeks to meet the contest deadline.
 
 ## Features
 
@@ -14,6 +13,7 @@ Senior Web Developer Nanodegree from Udacity.
 - responsive
 - progressive enhancement
 - app shell architecture
+- renders in about 400 milliseconds
 - works offline with ServiceWorkers
 - can install to home screen on mobile
 - sends food of the day updates using push notifications
