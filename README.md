@@ -18,6 +18,29 @@ two weeks to meet the contest deadline.
 - can install to home screen on mobile
 - sends food of the day updates using push notifications
 
+## Coding Style + Notes
+
+The code in the templates folder is built with ES6 template
+strings. If you see JS sprinkled throughout the HTML and templating
+logic that's what's going on. The code is served via a Node.js so that
+is where the server side templating happens.
+
+There's a service worker in `templates/sw.js` that does much of the
+heavy lifting after the client has visited the page. It will install
+itself into the browser, cache pages, serve the cached pages, save user
+data to indexedDB, and do push messaging. This duplicates what the
+Node.js server does so the app should work just fine offline by
+leveraging the service worker.
+
+The build process was pretty heavily optimized to keep file sizes
+down. Although some files may look to be around 10k the size measurement
+happens *after* gzip compression from the server. That usually cuts the
+file size in half or better.
+
+The app will probably not work if used locally. The service worker
+follows the web browser's content security policy so it needs its own
+domain (not the localhost). See below for a live version of the app.
+
 ## Try It Out
 
 There's a live version [hosted here](https://yum-foodz.herokuapp.com). Push
