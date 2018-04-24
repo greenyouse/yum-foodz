@@ -213,7 +213,6 @@ sw.matchEndpoint = function(request, path) {
         id: 0,
         title: '',
         picture: '',
-        title: '',
         time: '',
         difficulty: 0,
         description: '',
