@@ -41,7 +41,7 @@ div.page {
 
 #hamburger:checked ~ nav {
     -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
+    transform: translate(0, 0) !important;
     transition: transform 0.3s ease;
     box-shadow: 10em 0 1px rgba(0, 0, 0, 0.3);
 }
